@@ -1,10 +1,15 @@
 package com.bridgelabz.greeting.service;
 
+import com.bridgelabz.greeting.model.Greeting;
+import com.bridgelabz.greeting.repository.GreetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class GreetingService {
+    @Autowired
+    public GreetingRepository repository;
     public String greetingMessage(){
         return "Hello World!";
     }
@@ -20,5 +25,9 @@ public class GreetingService {
         }
         else
             return "Hello, "+firstName+" "+lastName+"!";
+    }
+
+    public Greeting saveGreeting(Greeting greeting) {
+        return repository.save(greeting);
     }
 }
