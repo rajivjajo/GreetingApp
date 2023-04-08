@@ -1,4 +1,9 @@
 package com.bridgelabz.greeting.model;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
 public class Greeting {
     private long id;
     private String message;
@@ -8,6 +13,11 @@ public class Greeting {
         this.message = message;
     }
 
+    public Greeting() {
+    }
+
+    @Id
+    @GeneratedValue
     public long getId() {
         return id;
     }
