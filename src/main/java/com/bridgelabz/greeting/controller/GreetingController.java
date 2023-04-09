@@ -7,25 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
+@RequestMapping("/greetings")
 public class GreetingController {
-    public static final String template = "Hello, %s!";
-    public final AtomicInteger counter = new AtomicInteger();
     @Autowired
     public GreetingService service;
 
-    @GetMapping("/greeting")
+    @GetMapping()
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name){
-        return new Greeting(counter.incrementAndGet(), String.format(template, name));
+        return service.greeting(name);
     }
     @RequestMapping("/welcome")
     public String displayMessage(){
         return service.greetingMessage();
     }
-    @RequestMapping("/greetings")
+    @RequestMapping("/greetBy")
     public String greetWithName(@RequestParam(value = "firstName", defaultValue = "") String firstName,
                                 @RequestParam(value = "lastName", defaultValue = "") String lastName){
         return service.greetWithName(firstName, lastName);
@@ -45,5 +42,9 @@ public class GreetingController {
     @PutMapping("/editGreeting/{id}")
     public Greeting editGreeting(@RequestBody Greeting greeting, @PathVariable Integer id){
         return service.editGreeting(greeting, id);
+    }
+    @DeleteMapping("/deleteGreeting/{id}")
+    public void deleteReading(@PathVariable Integer id){
+        service.deleteGreeting(id);
     }
 }
