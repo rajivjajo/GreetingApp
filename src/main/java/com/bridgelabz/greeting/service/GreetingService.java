@@ -5,6 +5,8 @@ import com.bridgelabz.greeting.repository.GreetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GreetingService {
     @Autowired
@@ -32,5 +34,9 @@ public class GreetingService {
 
     public Greeting getGreetingById(Integer id) {
         return repository.findById(id).orElse(null);
+    }
+
+    public List<Greeting> getGreetings() {
+        return repository.findAll();
     }
 }
